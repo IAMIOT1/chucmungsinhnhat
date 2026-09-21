@@ -5,23 +5,24 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
+  background: radial-gradient(circle, #ff758c 0%, #ff7eb3 40%, #651caf 100%);
   font-family: 'Montserrat', sans-serif;
   overflow: hidden;
+  position: relative;
 }
 
-/* Popup Modal Nhập Tên */
+/* Modal Popup Nhập Tên */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
@@ -42,18 +43,18 @@ body {
   text-align: center;
   max-width: 360px;
   width: 85%;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal-icon { font-size: 50px; margin-bottom: 10px; }
-.modal-content h2 { color: #d4af37; font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 8px; }
+.modal-content h2 { color: #ff007f; font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 8px; }
 .modal-content p { font-size: 0.9rem; color: #555; margin-bottom: 20px; }
 
 .modal-content input {
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #d4af37;
+  border: 2px solid #ff007f;
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -64,152 +65,193 @@ body {
 .modal-content button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(45deg, #d4af37, #aa7c11);
+  background: linear-gradient(45deg, #ff007f, #ff758c);
   color: #fff;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 5px 15px rgba(255, 0, 127, 0.4);
 }
 
-/* BAO THƯ 3D HOÀNG GIA */
-.envelope-wrapper {
-  perspective: 1000px;
-  z-index: 10;
-  margin-top: 50px;
-}
-
-.envelope {
-  position: relative;
-  width: 320px;
-  height: 220px;
-  background-color: #7a1c1c;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-  cursor: pointer;
-}
-
-/* Nắp bao thư */
-.flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 160px solid transparent;
-  border-right: 160px solid transparent;
-  border-top: 120px solid #9e2a2a;
-  transform-origin: top;
-  transition: transform 0.6s 0.4s, z-index 0.2s 0.4s;
-  z-index: 5;
-}
-
-/* Thắt nơ / Con dấu */
-.seal {
-  position: absolute;
-  top: 90px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 35px;
-  z-index: 6;
-  transition: opacity 0.4s;
-}
-
-/* Túi phong bì đậy phía trước */
-.pocket {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 160px solid #8b2222;
-  border-right: 160px solid #8b2222;
-  border-bottom: 110px solid #a32828;
-  border-radius: 0 0 10px 10px;
-  z-index: 4;
-}
-
-/* BỨC THƯ BÊN TRONG */
-.letter {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  width: 290px;
-  height: 380px;
-  background: #fffdf9;
-  border-radius: 12px;
-  padding: 20px 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  transition: transform 0.8s ease-in-out, z-index 0.1s 0.4s;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: center;
-  border: 1px solid #e0d8c3;
-}
-
-.letter-header { font-size: 24px; }
-.title { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #7a1c1c; }
-.recipient { font-weight: 600; color: #333; font-size: 0.9rem; }
-.highlight-name { color: #d4af37; font-weight: 700; }
-
-.message {
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: #444;
-  text-align: justify;
-  margin: 5px 0;
-}
-
-.message p { margin-bottom: 6px; }
-.signature { font-family: 'Dancing Script', cursive; font-size: 1.1rem; color: #7a1c1c; }
-
-/* HIỆU ỨNG KHI MỞ BAO THƯ 3D */
-.envelope.open .flap {
-  transform: rotateX(180deg);
-  z-index: 1;
-  transition: transform 0.6s, z-index 0.2s 0.6s;
-}
-
-.envelope.open .seal {
-  opacity: 0;
-}
-
-.envelope.open .letter {
-  transform: translateY(-220px);
-  z-index: 10;
-  transition: transform 0.8s 0.4s ease-in-out, z-index 0.1s 0.4s;
-}
-
-/* BÓNG BAY NỀN */
-.balloon-container {
+/* Các vật trang trí trôi nổi sặc sỡ xung quanh */
+.decorations {
   position: absolute;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  pointer-events: none;
   z-index: 1;
 }
 
-.balloon {
+.floating-gift {
   position: absolute;
-  bottom: -100px;
-  width: 50px;
-  height: 70px;
-  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-  animation: floatUp 8s infinite linear;
+  font-size: 2.5rem;
+  animation: float 6s infinite ease-in-out;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
 }
 
-.balloon1 { left: 10%; animation-delay: 0s; background: rgba(212, 175, 55, 0.5); }
-.balloon2 { left: 30%; animation-delay: 2.5s; background: rgba(158, 42, 42, 0.6); }
-.balloon3 { left: 70%; animation-delay: 5s; background: rgba(212, 175, 55, 0.5); }
-.balloon4 { left: 85%; animation-delay: 1s; background: rgba(158, 42, 42, 0.6); }
+.gift1 { top: 10%; left: 10%; animation-delay: 0s; }
+.gift2 { top: 20%; right: 12%; animation-delay: 1s; font-size: 3rem; }
+.gift3 { bottom: 15%; left: 8%; animation-delay: 2s; }
+.gift4 { bottom: 12%; right: 10%; animation-delay: 3s; font-size: 3rem; }
+.gift5 { top: 70%; left: 20%; animation-delay: 1.5s; }
+.gift6 { top: 15%; left: 45%; animation-delay: 2.5s; }
+.gift7 { bottom: 30%; right: 25%; animation-delay: 0.5s; }
 
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Sân khấu Hộp Quà */
+.stage {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* HỘP QUÀ 3D */
+.gift-box {
+  width: 200px;
+  height: 180px;
+  background: linear-gradient(135deg, #ff0055 0%, #ff5050 100%);
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  transition: transform 0.3s, opacity 0.5s;
+}
+
+.gift-box:hover {
+  transform: scale(1.05);
+}
+
+.gift-box .lid {
+  width: 220px;
+  height: 45px;
+  background: #e6004c;
+  border-radius: 10px;
+  position: absolute;
+  top: -20px;
+  left: -10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease-in-out;
+}
+
+.ribbon-bow {
+  font-size: 40px;
+  margin-top: -30px;
+}
+
+.box-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.box-ribbon {
+  position: absolute;
+  width: 35px;
+  height: 100%;
+  background: #ffeb3b;
+}
+
+.click-hint {
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  z-index: 2;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  animation: pulse 1.5s infinite;
+}
+
+/* Mở nắp hộp quà */
+.gift-box.opened .lid {
+  transform: translateY(-120px) rotate(-20deg);
+  opacity: 0;
+}
+
+.gift-box.opened {
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  margin: 0;
+}
+
+/* THIỆP LỜI CHÚC (Xuất hiện sau khi mở) */
+.birthday-card {
+  width: 340px;
+  max-width: 90vw;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  transform: scale(0) rotate(-10deg);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+  border: 4px solid #ffeb3b;
+}
+
+.birthday-card.show {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+.card-header { font-size: 26px; }
+
+.card-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.4rem;
+  color: #ff007f;
+  margin-bottom: 5px;
+}
+
+.recipient {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.highlight-name {
+  color: #ff007f;
+  font-weight: 700;
+}
+
+.message-content {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #444;
+  text-align: justify;
+  margin-bottom: 15px;
+}
+
+.message-content p {
+  margin-bottom: 10px;
+}
+
+.signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.2rem;
+  color: #ff007f;
+  font-weight: bold;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
 }
 
 @keyframes popIn {
