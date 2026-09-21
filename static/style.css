@@ -9,26 +9,29 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle, #ff758c 0%, #ff7eb3 40%, #651caf 100%);
+  background: radial-gradient(circle at center, #ff85a2 0%, #a154f2 60%, #3e1b70 100%);
   font-family: 'Montserrat', sans-serif;
   overflow: hidden;
   position: relative;
 }
 
-/* Modal Popup Nhập Tên */
+/* POPUP NHẬP TÊN (MƯỢT & GLASSMORPHISM) */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
+  background: rgba(15, 10, 30, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
-  transition: opacity 0.5s ease, visibility 0.5s;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
 }
 
 .modal-overlay.hide {
@@ -37,45 +40,73 @@ body {
 }
 
 .modal-content {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 35px 30px;
+  border-radius: 24px;
   text-align: center;
-  max-width: 360px;
-  width: 85%;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  max-width: 380px;
+  width: 88%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 117, 140, 0.3);
+  animation: modalSmoothIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-.modal-icon { font-size: 50px; margin-bottom: 10px; }
-.modal-content h2 { color: #ff007f; font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 8px; }
-.modal-content p { font-size: 0.9rem; color: #555; margin-bottom: 20px; }
+.modal-icon { 
+  font-size: 55px; 
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: floatMini 3s infinite ease-in-out;
+}
+
+.modal-content h2 { 
+  color: #ff007f; 
+  font-family: 'Dancing Script', cursive; 
+  font-size: 2.4rem; 
+  margin-bottom: 8px; 
+}
+
+.modal-content p { 
+  font-size: 0.9rem; 
+  color: #555; 
+  margin-bottom: 22px; 
+}
 
 .modal-content input {
   width: 100%;
-  padding: 12px 15px;
-  border: 2px solid #ff007f;
-  border-radius: 10px;
+  padding: 14px 18px;
+  border: 2px solid #ff99c8;
+  border-radius: 12px;
   font-size: 1rem;
   outline: none;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-content input:focus {
+  border-color: #ff007f;
+  box-shadow: 0 0 12px rgba(255, 0, 127, 0.3);
 }
 
 .modal-content button {
   width: 100%;
-  padding: 12px;
-  background: linear-gradient(45deg, #ff007f, #ff758c);
+  padding: 14px;
+  background: linear-gradient(135deg, #ff007f 0%, #ff5252 100%);
   color: #fff;
   border: none;
-  border-radius: 10px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(255, 0, 127, 0.4);
+  box-shadow: 0 8px 20px rgba(255, 0, 127, 0.35);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
 }
 
-/* Các vật trang trí trôi nổi sặc sỡ xung quanh */
+.modal-content button:active {
+  transform: scale(0.97);
+}
+
+/* VẬT TRANG TRÍ MƯỢT MÀ XUNG QUANH */
 .decorations {
   position: absolute;
   width: 100%;
@@ -86,25 +117,20 @@ body {
 
 .floating-gift {
   position: absolute;
-  font-size: 2.5rem;
-  animation: float 6s infinite ease-in-out;
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+  font-size: 2.8rem;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.25));
+  animation: floatSmooth 6s infinite ease-in-out;
 }
 
-.gift1 { top: 10%; left: 10%; animation-delay: 0s; }
-.gift2 { top: 20%; right: 12%; animation-delay: 1s; font-size: 3rem; }
-.gift3 { bottom: 15%; left: 8%; animation-delay: 2s; }
-.gift4 { bottom: 12%; right: 10%; animation-delay: 3s; font-size: 3rem; }
-.gift5 { top: 70%; left: 20%; animation-delay: 1.5s; }
-.gift6 { top: 15%; left: 45%; animation-delay: 2.5s; }
-.gift7 { bottom: 30%; right: 25%; animation-delay: 0.5s; }
+.gift1 { top: 12%; left: 8%; animation-delay: 0s; }
+.gift2 { top: 18%; right: 10%; animation-delay: 1.2s; font-size: 3.2rem; }
+.gift3 { bottom: 15%; left: 10%; animation-delay: 2.4s; }
+.gift4 { bottom: 12%; right: 8%; animation-delay: 3.6s; font-size: 3.2rem; }
+.gift5 { top: 72%; left: 22%; animation-delay: 1.8s; }
+.gift6 { top: 12%; left: 48%; animation-delay: 3s; }
+.gift7 { bottom: 28%; right: 22%; animation-delay: 0.6s; }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(10deg); }
-}
-
-/* Sân khấu Hộp Quà */
+/* SÂN KHẤU HỘP QUÀ & THIỆP */
 .stage {
   position: relative;
   z-index: 10;
@@ -112,42 +138,45 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  perspective: 1200px;
 }
 
-/* HỘP QUÀ 3D */
+/* HỘP QUÀ 3D MƯỢT MÀ */
 .gift-box {
-  width: 200px;
-  height: 180px;
-  background: linear-gradient(135deg, #ff0055 0%, #ff5050 100%);
-  border-radius: 15px;
+  width: 210px;
+  height: 190px;
+  background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
+  border-radius: 20px;
   position: relative;
   cursor: pointer;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-  transition: transform 0.3s, opacity 0.5s;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 8, 68, 0.3);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease-out;
+  transform-style: preserve-3d;
 }
 
 .gift-box:hover {
-  transform: scale(1.05);
+  transform: translateY(-8px) scale(1.03);
 }
 
 .gift-box .lid {
-  width: 220px;
-  height: 45px;
-  background: #e6004c;
-  border-radius: 10px;
+  width: 230px;
+  height: 50px;
+  background: linear-gradient(135deg, #e6004c 0%, #ff3366 100%);
+  border-radius: 12px;
   position: absolute;
-  top: -20px;
+  top: -22px;
   left: -10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.6s ease-in-out;
+  transition: transform 0.7s cubic-bezier(0.68, -0.6, 0.32, 1.6), opacity 0.5s;
 }
 
 .ribbon-bow {
-  font-size: 40px;
-  margin-top: -30px;
+  font-size: 44px;
+  margin-top: -32px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
 }
 
 .box-body {
@@ -157,72 +186,81 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
 .box-ribbon {
   position: absolute;
-  width: 35px;
+  width: 38px;
   height: 100%;
-  background: #ffeb3b;
+  background: linear-gradient(90deg, #ffe066 0%, #fff3a0 50%, #ffe066 100%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 .click-hint {
   color: #fff;
-  font-weight: bold;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 0.95rem;
   z-index: 2;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  animation: pulse 1.5s infinite;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  animation: pulseSmooth 2s infinite ease-in-out;
 }
 
-/* Mở nắp hộp quà */
 .gift-box.opened .lid {
-  transform: translateY(-120px) rotate(-20deg);
+  transform: translateY(-160px) rotate(-25deg) scale(0.9);
   opacity: 0;
 }
 
 .gift-box.opened {
-  transform: scale(0);
+  transform: scale(0) rotateX(45deg);
   opacity: 0;
   pointer-events: none;
   height: 0;
   margin: 0;
 }
 
-/* THIỆP LỜI CHÚC (Xuất hiện sau khi mở) */
+/* TẤM THIỆP 3D XUẤT HIỆN SIÊU MƯỢT */
 .birthday-card {
-  width: 340px;
+  width: 360px;
   max-width: 90vw;
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 25px 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 30px 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(255, 230, 0, 0.3);
   text-align: center;
-  transform: scale(0) rotate(-10deg);
+  transform: translateY(60px) scale(0.7) rotateX(-20deg);
   opacity: 0;
-  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
-  border: 4px solid #ffeb3b;
+  visibility: hidden;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease, visibility 0.7s;
+  border: 3px solid #ffe066;
 }
 
 .birthday-card.show {
-  transform: scale(1) rotate(0deg);
+  transform: translateY(0) scale(1) rotateX(0deg);
   opacity: 1;
+  visibility: visible;
 }
 
-.card-header { font-size: 26px; }
+.card-header { 
+  font-size: 28px; 
+  margin-bottom: 4px;
+}
 
 .card-title {
   font-family: 'Dancing Script', cursive;
-  font-size: 2.4rem;
+  font-size: 2.6rem;
   color: #ff007f;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  text-shadow: 0 2px 4px rgba(255, 0, 127, 0.15);
 }
 
 .recipient {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   font-weight: 600;
   color: #333;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .highlight-name {
@@ -231,11 +269,11 @@ body {
 }
 
 .message-content {
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: #444;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #3f3f46;
   text-align: justify;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .message-content p {
@@ -244,17 +282,28 @@ body {
 
 .signature {
   font-family: 'Dancing Script', cursive;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #ff007f;
   font-weight: bold;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+/* ANIMATION KEYFRAMES NÂNG CẤP MƯỢT */
+@keyframes floatSmooth {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(6deg); }
 }
 
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes floatMini {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulseSmooth {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+@keyframes modalSmoothIn {
+  from { transform: scale(0.85) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
 }
