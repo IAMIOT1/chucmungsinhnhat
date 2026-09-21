@@ -5,18 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chúc Mừng Sinh Nhật!</title>
   
-  <!-- Favicon icon bánh sinh nhật -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
-  
-  <!-- Tải file CSS từ thư mục static của Flask -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-  <!-- Nhạc nền chúc mừng sinh nhật -->
+  <!-- Nhạc nền sinh nhật -->
   <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a7732a.mp3?filename=happy-birthday-15793.mp3"></audio>
+
+  <!-- Màn hình Modal nhập tên khi mới vào trang -->
+  <div id="name-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-icon">🎉</div>
+      <h2>Chào mừng bạn!</h2>
+      <p>Vui lòng nhập tên của bạn (hoặc tên người nhận thiệp):</p>
+      <form onsubmit="submitName(event)">
+        <input type="text" id="name-input" placeholder="Nhập tên tại đây..." required autofocus autocomplete="off">
+        <button type="submit">Khám phá thiệp ngay ✨</button>
+      </form>
+    </div>
+  </div>
 
   <!-- Hiệu ứng bóng bay nền -->
   <div class="balloon-container">
@@ -26,23 +36,24 @@
     <div class="balloon balloon4"></div>
   </div>
 
+  <!-- Thiệp 3D -->
   <div class="card-container">
     <div class="card" onclick="openCard()">
-      <!-- Mặt ngoài của thiệp -->
+      <!-- Mặt ngoài thiệp -->
       <div class="card-front">
         <div class="gift-icon">🎁</div>
         <h2>Happy Birthday!</h2>
-        <p>Nhấn vào đây để mở thiệp ✨</p>
+        <p>Bấm vào thiệp để mở ✨</p>
       </div>
 
-      <!-- Mặt trong của thiệp -->
+      <!-- Mặt trong thiệp -->
       <div class="card-inside">
         <div class="decor-top">🎂✨🎉</div>
         <h1 class="title">Happy Birthday!</h1>
-        <p class="recipient">Gửi đến người bạn đặc biệt 💖</p>
+        <p class="recipient">Gửi đến: <span id="recipient-name" class="highlight-name">Bạn</span> 💖</p>
         <div class="message">
-          <p>Chúc bạn tuổi mới luôn ngập tràn niềm vui, hạnh phúc và thành công!</p>
-          <p>Mong rằng mọi ước mơ của bạn sẽ sớm trở thành hiện thực và mỗi ngày trôi qua đều là một hành trình tuyệt vời. 🌸✨</p>
+          <p>Chúc <strong class="name-inline">bạn</strong> tuổi mới luôn ngập tràn niềm vui, hạnh phúc và thành công!</p>
+          <p>Mong rằng mọi ước mơ của <span class="name-inline">bạn</span> sẽ sớm trở thành hiện thực và mỗi ngày trôi qua đều là một hành trình tuyệt vời. 🌸✨</p>
         </div>
         <p class="signature">— Từ một người luôn chúc phúc cho bạn —</p>
       </div>
@@ -50,7 +61,30 @@
   </div>
 
   <script>
-    let isPlayed = false;
+    let recipientName = "Bạn";
+    let musicPlayed = false;
+
+    function submitName(event) {
+      event.preventDefault();
+      const inputVal = document.getElementById('name-input').value.trim();
+      if (inputVal) {
+        recipientName = inputVal;
+        
+        // Cập nhật tên vào thiệp
+        document.getElementById('recipient-name').innerText = recipientName;
+        document.querySelectorAll('.name-inline').forEach(el => el.innerText = recipientName);
+        
+        // Bật nhạc nền ngay sau khi người dùng tương tác nhập tên
+        const music = document.getElementById('bg-music');
+        music.play().then(() => {
+          musicPlayed = true;
+        }).catch(err => console.log("Cần tương tác thêm để phát nhạc: ", err));
+
+        // Ẩn màn hình nhập tên
+        const modal = document.getElementById('name-modal');
+        modal.classList.add('hide');
+      }
+    }
 
     function openCard() {
       const card = document.querySelector('.card');
@@ -61,15 +95,15 @@
       if (card.classList.contains('open')) {
         // Bắn pháo hoa Confetti
         confetti({
-          particleCount: 120,
-          spread: 80,
+          particleCount: 150,
+          spread: 90,
           origin: { y: 0.6 }
         });
 
-        // Phát nhạc nền
-        if (!isPlayed) {
-          music.play().catch(() => console.log("Tự động phát nhạc bị chặn bởi trình duyệt"));
-          isPlayed = true;
+        // Phát nhạc nếu trước đó bị trình duyệt chặn
+        if (!musicPlayed) {
+          music.play().catch(() => {});
+          musicPlayed = true;
         }
       }
     }
