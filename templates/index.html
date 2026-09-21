@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chúc Mừng Sinh Nhật!</title>
   
-  <!-- Icon bánh sinh nhật cho tab trình duyệt (Khắc phục lỗi 404 favicon) -->
+  <!-- Favicon icon bánh sinh nhật -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
   
-  <link rel="stylesheet" href="style.css">
+  <!-- Tải file CSS từ thư mục static của Flask -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-  <!-- Nhạc nền chúc mừng sinh nhật nhẹ nhàng -->
+  <!-- Nhạc nền chúc mừng sinh nhật -->
   <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a7732a.mp3?filename=happy-birthday-15793.mp3"></audio>
 
   <!-- Hiệu ứng bóng bay nền -->
@@ -65,7 +66,7 @@
           origin: { y: 0.6 }
         });
 
-        // Phát nhạc nền ở lần mở đầu tiên
+        // Phát nhạc nền
         if (!isPlayed) {
           music.play().catch(() => console.log("Tự động phát nhạc bị chặn bởi trình duyệt"));
           isPlayed = true;
