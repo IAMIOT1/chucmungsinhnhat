@@ -14,14 +14,14 @@ body {
   overflow: hidden;
 }
 
-/* Modal nhập tên */
+/* Modal Popup Nhập Tên */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
@@ -42,7 +42,7 @@ body {
   text-align: center;
   max-width: 360px;
   width: 85%;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -73,7 +73,6 @@ body {
   outline: none;
   margin-bottom: 15px;
   text-align: center;
-  transition: border-color 0.3s;
 }
 
 .modal-content input:focus {
@@ -91,109 +90,115 @@ body {
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
-  transition: transform 0.2s;
 }
 
-.modal-content button:hover {
-  transform: translateY(-2px);
-}
-
-/* Thiệp 3D */
-.card-container {
-  perspective: 1200px;
+/* KHUNG 3D THIỆP LẬT GÁY */
+.card-wrapper {
+  perspective: 1500px;
   z-index: 10;
 }
 
-.card {
-  width: 330px;
-  height: 460px;
+.card-3d {
+  width: 300px;
+  height: 420px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  transition: transform 0.8s ease;
 }
 
-.card.open {
+/* Khi mở thiệp dịch chuyển nhẹ sang phải để cân đối không gian */
+.card-3d.open {
+  transform: translateX(30%);
+}
+
+/* TRANG NỘI DUNG BÊN TRONG (CỐ ĐỊNH) */
+.card-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  border-left: 2px solid #eee;
+}
+
+.decor-top { font-size: 28px; }
+.title { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #ff6b81; }
+.recipient { font-weight: 600; color: #444; font-size: 0.95rem; }
+.highlight-name { color: #ff6b81; font-size: 1.1rem; font-weight: 700; }
+.message { font-size: 0.88rem; line-height: 1.6; color: #555; }
+.signature { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: #ff6b81; }
+
+/* TRANG BÌA LẬT 3D (XOAY QUANH MÉP TRÁI) */
+.card-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: left center; /* Điểm gáy xoay bên trái */
+  transform-style: preserve-3d;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 15px;
+}
+
+/* Góc xoay lật 180 độ khi mở */
+.card-3d.open .card-cover {
   transform: rotateY(-180deg);
 }
 
-.card-front, .card-inside {
+.cover-front, .cover-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
   backface-visibility: hidden;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 25px;
-  text-align: center;
 }
 
-.card-front {
-  background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+/* Mặt trước bìa */
+.cover-front {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
   color: #fff;
-  z-index: 2;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
 }
 
 .gift-icon {
-  font-size: 65px;
+  font-size: 60px;
   margin-bottom: 15px;
   animation: bounce 2s infinite;
 }
 
-.card-front h2 {
+.cover-front h2 {
   font-family: 'Dancing Script', cursive;
-  font-size: 2.6rem;
+  font-size: 2.5rem;
   margin-bottom: 10px;
 }
 
-.card-inside {
-  background: #ffffff;
-  color: #333;
+/* Mặt sau bìa (khi mở ra quay mặt này vào trong) */
+.cover-back {
+  background: #fff0f3;
   transform: rotateY(180deg);
-  border: 2px solid #ffe6e6;
-  justify-content: space-between;
+  border-right: 1px solid #ffe0e6;
 }
 
-.decor-top {
-  font-size: 30px;
+.inner-pattern {
+  font-size: 40px;
+  opacity: 0.6;
 }
 
-.title {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.3rem;
-  color: #ff6b81;
-}
-
-.recipient {
-  font-weight: 600;
-  color: #444;
-  font-size: 1rem;
-}
-
-.highlight-name {
-  color: #ff6b81;
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-.message {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #555;
-  margin: 10px 0;
-}
-
-.signature {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.25rem;
-  color: #ff6b81;
-}
-
-/* Bóng bay */
+/* Bóng bay hiệu ứng nền */
 .balloon-container {
   position: absolute;
   width: 100%;

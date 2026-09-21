@@ -12,23 +12,23 @@
 </head>
 <body>
 
-  <!-- Nhạc nền sinh nhật -->
+  <!-- Nhạc nền -->
   <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a7732a.mp3?filename=happy-birthday-15793.mp3"></audio>
 
-  <!-- Màn hình Modal nhập tên khi mới vào trang -->
+  <!-- Popup nhập tên -->
   <div id="name-modal" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-icon">🎉</div>
-      <h2>Chào mừng bạn!</h2>
-      <p>Vui lòng nhập tên của bạn (hoặc tên người nhận thiệp):</p>
+      <h2>Món quà bất ngờ!</h2>
+      <p>Vui lòng nhập tên người nhận thiệp:</p>
       <form onsubmit="submitName(event)">
         <input type="text" id="name-input" placeholder="Nhập tên tại đây..." required autofocus autocomplete="off">
-        <button type="submit">Khám phá thiệp ngay ✨</button>
+        <button type="submit">Mở thiệp 3D ✨</button>
       </form>
     </div>
   </div>
 
-  <!-- Hiệu ứng bóng bay nền -->
+  <!-- Bóng bay -->
   <div class="balloon-container">
     <div class="balloon balloon1"></div>
     <div class="balloon balloon2"></div>
@@ -36,17 +36,11 @@
     <div class="balloon balloon4"></div>
   </div>
 
-  <!-- Thiệp 3D -->
-  <div class="card-container">
-    <div class="card" onclick="openCard()">
-      <!-- Mặt ngoài thiệp -->
-      <div class="card-front">
-        <div class="gift-icon">🎁</div>
-        <h2>Happy Birthday!</h2>
-        <p>Bấm vào thiệp để mở ✨</p>
-      </div>
-
-      <!-- Mặt trong thiệp -->
+  <!-- Khung Thiệp 3D -->
+  <div class="card-wrapper">
+    <div class="card-3d" onclick="toggleCard()">
+      
+      <!-- Nửa bên phải: Trang nội dung bên trong (Cố định) -->
       <div class="card-inside">
         <div class="decor-top">🎂✨🎉</div>
         <h1 class="title">Happy Birthday!</h1>
@@ -57,6 +51,21 @@
         </div>
         <p class="signature">— Từ một người luôn chúc phúc cho bạn —</p>
       </div>
+
+      <!-- Nửa bên trái: Nắp bìa lật 3D theo gáy mép trái -->
+      <div class="card-cover">
+        <!-- Mặt trước của nắp bìa -->
+        <div class="cover-front">
+          <div class="gift-icon">🎁</div>
+          <h2>Happy Birthday!</h2>
+          <p>Chạm vào thiệp để mở ✨</p>
+        </div>
+        <!-- Mặt sau của nắp bìa (khi mở ra) -->
+        <div class="cover-back">
+          <div class="inner-pattern">🎈🌸🎈</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -70,37 +79,31 @@
       if (inputVal) {
         recipientName = inputVal;
         
-        // Cập nhật tên vào thiệp
         document.getElementById('recipient-name').innerText = recipientName;
         document.querySelectorAll('.name-inline').forEach(el => el.innerText = recipientName);
         
-        // Bật nhạc nền ngay sau khi người dùng tương tác nhập tên
         const music = document.getElementById('bg-music');
         music.play().then(() => {
           musicPlayed = true;
-        }).catch(err => console.log("Cần tương tác thêm để phát nhạc: ", err));
+        }).catch(err => console.log("Cần tương tác để mở nhạc: ", err));
 
-        // Ẩn màn hình nhập tên
-        const modal = document.getElementById('name-modal');
-        modal.classList.add('hide');
+        document.getElementById('name-modal').classList.add('hide');
       }
     }
 
-    function openCard() {
-      const card = document.querySelector('.card');
+    function toggleCard() {
+      const card = document.querySelector('.card-3d');
       const music = document.getElementById('bg-music');
       
       card.classList.toggle('open');
 
       if (card.classList.contains('open')) {
-        // Bắn pháo hoa Confetti
         confetti({
           particleCount: 150,
           spread: 90,
           origin: { y: 0.6 }
         });
 
-        // Phát nhạc nếu trước đó bị trình duyệt chặn
         if (!musicPlayed) {
           music.play().catch(() => {});
           musicPlayed = true;
