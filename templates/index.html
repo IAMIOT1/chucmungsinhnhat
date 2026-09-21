@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc Mừng Sinh Nhật!</title>
+  
+  <!-- Icon bánh sinh nhật cho tab trình duyệt (Khắc phục lỗi 404 favicon) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
+  
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Nhạc nền chúc mừng sinh nhật nhẹ nhàng -->
+  <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a7732a.mp3?filename=happy-birthday-15793.mp3"></audio>
+
+  <!-- Hiệu ứng bóng bay nền -->
+  <div class="balloon-container">
+    <div class="balloon balloon1"></div>
+    <div class="balloon balloon2"></div>
+    <div class="balloon balloon3"></div>
+    <div class="balloon balloon4"></div>
+  </div>
+
+  <div class="card-container">
+    <div class="card" onclick="openCard()">
+      <!-- Mặt ngoài của thiệp -->
+      <div class="card-front">
+        <div class="gift-icon">🎁</div>
+        <h2>Happy Birthday!</h2>
+        <p>Nhấn vào đây để mở thiệp ✨</p>
+      </div>
+
+      <!-- Mặt trong của thiệp -->
+      <div class="card-inside">
+        <div class="decor-top">🎂✨🎉</div>
+        <h1 class="title">Happy Birthday!</h1>
+        <p class="recipient">Gửi đến người bạn đặc biệt 💖</p>
+        <div class="message">
+          <p>Chúc bạn tuổi mới luôn ngập tràn niềm vui, hạnh phúc và thành công!</p>
+          <p>Mong rằng mọi ước mơ của bạn sẽ sớm trở thành hiện thực và mỗi ngày trôi qua đều là một hành trình tuyệt vời. 🌸✨</p>
+        </div>
+        <p class="signature">— Từ một người luôn chúc phúc cho bạn —</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isPlayed = false;
+
+    function openCard() {
+      const card = document.querySelector('.card');
+      const music = document.getElementById('bg-music');
+      
+      card.classList.toggle('open');
+
+      if (card.classList.contains('open')) {
+        // Bắn pháo hoa Confetti
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+
+        // Phát nhạc nền ở lần mở đầu tiên
+        if (!isPlayed) {
+          music.play().catch(() => console.log("Tự động phát nhạc bị chặn bởi trình duyệt"));
+          isPlayed = true;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
