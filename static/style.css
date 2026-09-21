@@ -9,19 +9,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  background: radial-gradient(circle, #2c3e50 0%, #000000 100%);
   font-family: 'Montserrat', sans-serif;
   overflow: hidden;
 }
 
-/* Modal Popup Nhập Tên */
+/* Popup Modal Nhập Tên */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
@@ -42,32 +42,18 @@ body {
   text-align: center;
   max-width: 360px;
   width: 85%;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
   animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.modal-icon {
-  font-size: 50px;
-  margin-bottom: 10px;
-}
-
-.modal-content h2 {
-  color: #ff6b81;
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.2rem;
-  margin-bottom: 8px;
-}
-
-.modal-content p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 20px;
-}
+.modal-icon { font-size: 50px; margin-bottom: 10px; }
+.modal-content h2 { color: #d4af37; font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 8px; }
+.modal-content p { font-size: 0.9rem; color: #555; margin-bottom: 20px; }
 
 .modal-content input {
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #ffb6c1;
+  border: 2px solid #d4af37;
   border-radius: 10px;
   font-size: 1rem;
   outline: none;
@@ -75,165 +61,130 @@ body {
   text-align: center;
 }
 
-.modal-content input:focus {
-  border-color: #ff6b81;
-}
-
 .modal-content button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(45deg, #ff6b81, #ff8e53);
+  background: linear-gradient(45deg, #d4af37, #aa7c11);
   color: #fff;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
 }
 
-/* KHUNG 3D THIỆP LẬT GÁY */
-.card-wrapper {
-  perspective: 1500px;
+/* BAO THƯ 3D HOÀNG GIA */
+.envelope-wrapper {
+  perspective: 1000px;
   z-index: 10;
+  margin-top: 50px;
 }
 
-.card-3d {
-  width: 320px;
-  height: 480px;
+.envelope {
   position: relative;
-  transform-style: preserve-3d;
+  width: 320px;
+  height: 220px;
+  background-color: #7a1c1c;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
   cursor: pointer;
-  transition: transform 0.8s ease;
 }
 
-/* Dịch chuyển nhẹ sang phải khi mở để cân đối khung hình */
-.card-3d.open {
-  transform: translateX(25%);
-}
-
-/* TRANG NỘI DUNG BÊN TRONG (CỐ ĐỊNH) */
-.card-inside {
+/* Nắp bao thư */
+.flap {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  border-radius: 0 15px 15px 0;
-  box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
-  padding: 25px 20px;
+  width: 0;
+  height: 0;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-top: 120px solid #9e2a2a;
+  transform-origin: top;
+  transition: transform 0.6s 0.4s, z-index 0.2s 0.4s;
+  z-index: 5;
+}
+
+/* Thắt nơ / Con dấu */
+.seal {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 35px;
+  z-index: 6;
+  transition: opacity 0.4s;
+}
+
+/* Túi phong bì đậy phía trước */
+.pocket {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 160px solid #8b2222;
+  border-right: 160px solid #8b2222;
+  border-bottom: 110px solid #a32828;
+  border-radius: 0 0 10px 10px;
+  z-index: 4;
+}
+
+/* BỨC THƯ BÊN TRONG */
+.letter {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  width: 290px;
+  height: 380px;
+  background: #fffdf9;
+  border-radius: 12px;
+  padding: 20px 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: transform 0.8s ease-in-out, z-index 0.1s 0.4s;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  border-left: 2px solid #eee;
+  border: 1px solid #e0d8c3;
 }
 
-.decor-top { 
-  font-size: 26px; 
-}
+.letter-header { font-size: 24px; }
+.title { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #7a1c1c; }
+.recipient { font-weight: 600; color: #333; font-size: 0.9rem; }
+.highlight-name { color: #d4af37; font-weight: 700; }
 
-.title { 
-  font-family: 'Dancing Script', cursive; 
-  font-size: 2.2rem; 
-  color: #ff6b81; 
-}
-
-.recipient { 
-  font-weight: 600; 
-  color: #444; 
-  font-size: 0.95rem; 
-  margin-bottom: 5px;
-}
-
-.highlight-name { 
-  color: #ff6b81; 
-  font-size: 1.1rem; 
-  font-weight: 700; 
-}
-
-/* Định dạng phần lời chúc dài */
-.message { 
-  font-size: 0.85rem; 
-  line-height: 1.5; 
-  color: #444; 
+.message {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #444;
   text-align: justify;
   margin: 5px 0;
 }
 
-.message p {
-  margin-bottom: 8px;
+.message p { margin-bottom: 6px; }
+.signature { font-family: 'Dancing Script', cursive; font-size: 1.1rem; color: #7a1c1c; }
+
+/* HIỆU ỨNG KHI MỞ BAO THƯ 3D */
+.envelope.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+  transition: transform 0.6s, z-index 0.2s 0.6s;
 }
 
-.signature { 
-  font-family: 'Dancing Script', cursive; 
-  font-size: 1.15rem; 
-  color: #ff6b81; 
+.envelope.open .seal {
+  opacity: 0;
 }
 
-/* TRANG BÌA LẬT 3D (XOAY QUANH MÉP TRÁI) */
-.card-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform-origin: left center;
-  transform-style: preserve-3d;
-  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 15px;
+.envelope.open .letter {
+  transform: translateY(-220px);
+  z-index: 10;
+  transition: transform 0.8s 0.4s ease-in-out, z-index 0.1s 0.4s;
 }
 
-/* Lật nắp thiệp 180 độ */
-.card-3d.open .card-cover {
-  transform: rotateY(-180deg);
-}
-
-.cover-front, .cover-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Mặt trước bìa */
-.cover-front {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-  color: #fff;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
-}
-
-.gift-icon {
-  font-size: 60px;
-  margin-bottom: 15px;
-  animation: bounce 2s infinite;
-}
-
-.cover-front h2 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-/* Mặt sau bìa (khi mở ra) */
-.cover-back {
-  background: #fff0f3;
-  transform: rotateY(180deg);
-  border-right: 1px solid #ffe0e6;
-}
-
-.inner-pattern {
-  font-size: 40px;
-  opacity: 0.6;
-}
-
-/* Bóng bay hiệu ứng nền */
+/* BÓNG BAY NỀN */
 .balloon-container {
   position: absolute;
   width: 100%;
@@ -251,20 +202,14 @@ body {
   animation: floatUp 8s infinite linear;
 }
 
-.balloon1 { left: 10%; animation-delay: 0s; background: rgba(255, 107, 129, 0.65); }
-.balloon2 { left: 30%; animation-delay: 2.5s; background: rgba(255, 234, 167, 0.65); }
-.balloon3 { left: 70%; animation-delay: 5s; background: rgba(116, 185, 255, 0.65); }
-.balloon4 { left: 85%; animation-delay: 1s; background: rgba(162, 155, 254, 0.65); }
+.balloon1 { left: 10%; animation-delay: 0s; background: rgba(212, 175, 55, 0.5); }
+.balloon2 { left: 30%; animation-delay: 2.5s; background: rgba(158, 42, 42, 0.6); }
+.balloon3 { left: 70%; animation-delay: 5s; background: rgba(212, 175, 55, 0.5); }
+.balloon4 { left: 85%; animation-delay: 1s; background: rgba(158, 42, 42, 0.6); }
 
 @keyframes floatUp {
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-15px); }
-  60% { transform: translateY(-7px); }
 }
 
 @keyframes popIn {
